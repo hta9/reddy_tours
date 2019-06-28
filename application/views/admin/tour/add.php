@@ -26,6 +26,16 @@
 
   	}
 
+  	.check
+  	{
+  		margin-top:2%;
+  	}
+  	.check:hover
+  	{
+  		cursor: pointer;
+
+  	}
+
 </style>
 
 </head>
@@ -48,7 +58,9 @@ if ($message = $this->session->flashdata('users'))
 
 
 
-		<form action=""  method="post" id="form_level1" class="level" >
+		<form action=""  method="post" id="validate_form" >
+
+		<div id="form_level1" class="level">
 			<h3>Tours / Add Tour</h3>
 
 
@@ -138,12 +150,10 @@ foreach ($countries as $country)
 
   	 		  </div>
   	  </div>
-
+</div>
 		
-		</form>
-
-
-		<form id="form_level2" class="level" name="frm3" >
+		
+		<div id="form_level2" class="level" name="frm3" style="display:none;">
 			<i class="fa fa-file-text-o next"  id="next2"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
 
 			<h3>How Many Checkpoints Do You Have?</h3>
@@ -160,24 +170,17 @@ foreach ($countries as $country)
 
 			</div>
 
-				<h1 class='checkpoint' id="checkpoint" style="display:none;">
-					<!-- <button class="simplebtn" name="simplebtn"> -->
-				  <i class="glyphicon glyphicon-plus-sign view" id="view" ></i>
-
-				  Checkpoints<br>
-				<!-- </button> -->
-				</h1>
 
 
-		</form>
+		</div>
 
 		<br>
 
-		<form id="form_level3" class="level"  >
+		<div id="form_level3" class="level"  >
 					<i class="fa fa-file-text-o next"  id="next3"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
 			<input type="text" name="">level 3
-		</form>
-
+		</div>
+</form>
 	</body>
 </html>
 
@@ -187,155 +190,20 @@ foreach ($countries as $country)
 	$(document).ready(function($)
 	{
 
-		/////////////////////////////////////////////////////////////////////////////////////////////
-	// Form Hide Show On Different Levels
+		// Form Hide Show On Different Levels
+		
+		$('#form_level2').show();
 
-		$('#form_level2').hide();
+		$('#form_level1').hide();
 		$('#form_level3').hide();
 
-		 $('#next1').click(function(event)
-		 {
-		 	var title 	  = $('#title').val();
-			var countries = $('#countries').val();
 
-
-			var city = '';
-			var lang = '';
-
-///City..............................................................
-///
-			if($.isNumeric($('.city').val()))
-			{
-
-				city = $('.city').val();
-
-			}
-			else
-			{
-				city = $('#add_city').val();
-			}
-
-			if(city=='')
-			{
-				alert("Please Fill Your City");
-				return false;
-			}
-
-///Language..............................................................
-
-			if($.isNumeric($('.lang').val()))
-			{
-				lang  = $('.lang').val();
-			}
-			else
-			{
-				lang = $('#new_language').val();
-			}
-
-			if(lang=='')
-			{
-				alert("Please Fill Your Language");
-				return false;
-			}
-
-			
-
-	//--------------------------------- Jquery Validations ------------------------------------------
-
-		$('#form_level1').validate({
-
-			rules:
-			{
-				title:
-				{
-				    required:true,
-				    maxlength:60
-				}
-		
-			},
-
-			messages:
-			{
-				title:
-				{
-				    required:"Tour Title Is Required.",
-				    maxlength:"<h6><b>Please Enter Less than or Equal to 60 Characters.</b></h6>"
-				}
-			}
-
-
-	});
-		//////////////////////////////////////////////////////////////////////////////////
-
-		
-		 	$.ajax({
-				url: '<?php echo site_url('admin/tours/add'); ?>',
-				type: 'POST',
-				data:
-				{
-					title 		: title,
-					city  		: city,
-					lang  		: lang,
-					countries	:countries
-
-				},
-				success:function(data)
-				{
-						console.log(data);
-						$('#form_level1').hide();
-		 				$('#form_level3').hide();
-		 				$('#form_level2').show();
-				}
-			})
-
-		});
-
-
-	/////////////////////////////////////////////////////////////////////////////////////////////
-	//Form:Lvel-2 Checkpoints Divs display as per selected Value
-
-		$('#checkpoints').change(function(event)
-		{
-
-			var counts = $(this).val();
-
-			$('#show_check').empty();
-
-			for (var i = 0; i <= counts-1; i++)
-			 {
-
-
-				$('#show_check').append($('.checkpoint').html());
-			 }
-		});
-
-
-	//Form:Lvel-2 Per Check-box plus Sign- View More
-
-		// $('.checkpoint').click(function()
-		//  {
-		//  	alert('123');
-		// 	//$(this).removeClass('glyphicon-plus-sign');
-		// 	//$(this).addClass('glyphicon-minus-sign');
-		// 	// console.log('plus');
-		// });
-
-	///////////////////////////////////////////////////////////////////////////////////////////////
-
-
+	///////////////////////   DIV:LEVEL-1 STARTS HERE  ////////////////////////////////////////////////
 	
-		 $('#next2').click(function(event)
-		 {
-		 	$('#form_level1').hide();
-		 	$('#form_level2').hide();
-		 	$('#form_level3').show();
 
-		});
-	//////////////////////////////////////////////////////////////////////////////////////////////
-
-	/////////////////////////////////////////////////////////////////////////////////////////////
-	//Fill Select Boxes Of Country,City and Language
-
+	//------------------ FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE  ------------------------------------
+	
+	
 		$('#countries').change(function(event) {
 
 			var country_id  = $(this).val();
@@ -377,10 +245,11 @@ foreach ($countries as $country)
 
 		});
 
-	//////////////////////////////////////////////////////////////////////////////////////////////////
+// ---------------- END: FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE ---------------------------------
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////
-	//Put Textbox as per Checked Value to add new Language and City
+
+// ----------------- Put Textbox as per Checked Value to add new Language and City -----------------------
+	
 
 		$('#new_city').click(function()
 		{
@@ -411,6 +280,172 @@ foreach ($countries as $country)
 		})
 
 	});
+
+// ----------------END: Put Textbox as per Checked Value to add new Language and City ------------------------------
+
+// -------------------First Div Button Click starts Here  --------------------------------------------------
+
+
+		 $('#next1').click(function(event)
+		 {
+		 	event.preventDefault();
+
+//--------------------------------- Jquery Validations------------------------------------------
+
+		$("#validate_form").validate({
+
+
+			rules:
+			{
+				title:
+				{
+				    required:true,
+				    maxlength:60
+				}
+		
+			},
+			messages:
+			{
+				title:
+				{
+				    required:"Tour Title Is Required.",
+				    maxlength:"<h6><b>Please Enter Less than or Equal to 60 Characters.</b></h6>"
+				}
+			},
+
+			submitHandler: function(form) { 
+
+
+		 	var title 	  = $('#title').val();
+			var countries = $('#countries').val();
+
+
+			var city = '';
+			var lang = '';
+
+///City..............................................................
+
+			if($.isNumeric($('.city').val()))
+			{
+
+				city = $('.city').val();
+
+			}
+			else
+			{
+				city = $('#add_city').val();
+			}
+
+			// if(city=='')
+			// {
+			// 	alert("Please Fill Your City");
+			// 	return false;
+			// }
+
+///Language..............................................................
+
+			if($.isNumeric($('.lang').val()))
+			{
+				lang  = $('.lang').val();
+			}
+			else
+			{
+				lang = $('#new_language').val();
+			}
+
+			if(lang=='')
+			{
+				alert("Please Fill Your Language");
+				return false;
+			}
+
+//Pass Data To Controller------------------------------------------------
+
+			var dataString = title+city+lang+countries;
+
+			$.ajax({
+				url: '<?php echo site_url('admin/tours/add'); ?>',
+				type: 'POST',
+				data: dataString,
+				// {
+				// 	title 		: title,
+				// 	city  		: city,
+				// 	lang  		: lang,
+				// 	countries	:countries
+
+				// },
+				success:function(data)
+				{	
+					alert('12');
+						console.log(data);
+						$('#form_level1').hide();
+		 				$('#form_level3').hide();
+		 				$('#form_level2').show();
+				}
+			});
+			return false;
+
+		}
+	});
+		
+
+	});
+
+
+	// ------------------------First Div Button Click Ends Here  ---------------------------------------------
+	
+	///////////////////////////////  DIV:LEVEL-1 ENDS HERE  //////////////////////////////////////////////////
+
+
+
+	/////////////////////////// DIV:LEVEL-2 STARTS HERE  ////////////////////////////////////////////////////
+
+
+	//----------------------- Display Checkpoints As per Dropdown Value Selected ------------------------------
+	
+		$('#checkpoints').change(function(event)
+		{
+
+			var counts = $(this).val();
+
+			$('#show_check').empty();
+
+			for (var i = 0; i <= counts-1; i++)
+			 {
+
+				$('#show_check').append("<div class='checkpoint ' id='checkpoint'><i class='glyphicon glyphicon-plus-sign check'></i>Checkpoints <input type='checkbox' ><div class='details'></div><br></div>");
+			 }
+		});
+
+	//----------------------- END: Display Checkpoints As per Dropdown Value Selected ----------------------------
+
+    //----------------------- Per Check-box plus Sign- View More ------------------------------------------------
+
+
+			$(document).on('click', '.check', function(event) 
+			{
+				event.preventDefault();
+				$(this).append("<br><input type='text'>");
+
+				
+			});
+
+	//----------------------- END : Per Check-box plus Sign- View More --------------------------------------------------------
+
+
+	
+		//  $('#next2').click(function(event)
+		//  {
+		//  	$('#form_level1').hide();
+		//  	$('#form_level2').hide();
+		//  	$('#form_level3').show();
+
+		// });
+
+	/////////////////////////// DIV:LEVEL-2 ENDS HERE  ////////////////////////////////////////////////////
+
+
+	
 </script>
 
 

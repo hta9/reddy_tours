@@ -3,6 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Tour_model extends My_Model
 {
+	
 	protected $soft_delete = true;
 
 	/**

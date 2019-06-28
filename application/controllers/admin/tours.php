@@ -76,14 +76,16 @@ class Tours extends My_Controller
 	{
 		if ($this->input->post())
 		{
+
+			
 			 $country = _post('countries');
 			 $city    = _post('city');
 			 $title   = _post('title');
 
-// echo "<pre>";
+echo "<pre>";
 
-// print_r($this->input->post());
-			// echo "</pre>";
+print_r($this->input->post());
+			echo "</pre>";
 
 			if (!is_numeric($city))
 			{
