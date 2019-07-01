@@ -61,4 +61,6 @@ class Tour_model extends My_Model
 		$sql = $this->insert($tour_data1);
 		return true;
 	}
+
+
 }

@@ -12,7 +12,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
- <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script>
+<script src="http://code.jquery.com/ui/1.10.0/jquery-ui.js"></script>
+
+ <!-- <script src="https://code.jquery.com/jquery-2.1.1.min.js" type="text/javascript"></script> -->
  <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.js"></script>
  <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/jquery.validate.min.js"></script>
  <script type="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/additional-methods.js"></script>
@@ -35,6 +37,7 @@
   		cursor: pointer;
 
   	}
+
 
 </style>
 
@@ -64,7 +67,7 @@ if ($message = $this->session->flashdata('users'))
 			<h3>Tours / Add Tour</h3>
 
 
-		<i class="fa fa-file-text-o next"  id="next1"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>
+		<i class="fa fa-file-text-o next"  id="next1"  style="font-size:36px;"></i>
 
 		<div class="row">
 				<div class="form-group col-md-3">
@@ -135,6 +138,7 @@ foreach ($countries as $country)
   	  </div>
 
   	  <br>
+
   	   <div class="row">
 
   	 		  <div class="col col-md-3">
@@ -150,7 +154,8 @@ foreach ($countries as $country)
 
   	 		  </div>
   	  </div>
-</div>
+
+   </div>
 		
 		
 		<div id="form_level2" class="level" name="frm3" style="display:none;">
@@ -170,16 +175,79 @@ foreach ($countries as $country)
 
 			</div>
 
-
-
 		</div>
 
 		<br>
 
 		<div id="form_level3" class="level"  >
 					<i class="fa fa-file-text-o next"  id="next3"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
-			<input type="text" name="">level 3
+
+				<div class="form-group" style="margin-top:3%;">
+					<label for="description">Description</label>
+					<textarea class="form-control" rows="5" id="description" name="description" style="width:30%;"></textarea>
+				</div>
+
+			<div class="row">
+
+				<div class="col-md-3">
+						<div class="form-group">
+								<label for="price">Price</label>
+								<input type="text"  class="form-control input-md price" name="price" id="price">
+						</div>
+				</div>
+
+				<div class="col-md-3">
+					 <div class="form-group">
+						<input type="checkbox" class="input-group price" id="null_price" name="price">I Have No Clue.
+					 </div>
+				</div>
+			</div>
+
+			<div class="form-group">
+
+				<h2><b>Age Restrictions and Accessibility</b></h2>
+				When Your Tour Is Suitable For All, Select All Icons
+
+
+				<br>
+			<div class="row">
+
+				<div class="col-md-3">
+					<h3>Age Restriction</h3>
+
+				<input type="radio" id="6" class="age" value="6" name="age"><label for="6">+6</label>
+				<input type="radio" id="9" class="age" value="9" name="age"><label for="9">+9</label>&nbsp;
+				<input type="radio" id="12" class="age" value="12" name="age"><label for="12">+12</label>
+				<input type="radio" id="16" class="age" value="16" name="age"><label for="16">+16</label>
+				<input type="radio" id="18" class="age" value="18" name="age"><label for="18">+18</label>
+				</div>
+			
+				<div class="col-md-3">
+					<h3>Accessibility</h3>
+					<input type="checkbox" class="accessibility" id="wheelchair" value="wheelchair" name="accessibility[]">
+					<label for="wheelchair">WheelChair</label>
+
+					<input type="checkbox" class="accessibility" id="babystoller"  value="babystoller"  name="accessibility[]">
+					<label for="babystoller">Babystoller</label>
+
+					<input type="checkbox" class="accessibility" id="dogs"  value="dogs"  name="accessibility[]">
+					<label for="dogs">Dogs</label>
+
+				</div>
 		</div>
+			</div>
+
+			<div id="congratulations" style="display:none;">
+				
+				<h1><b>CONGRATULATIONS!</b></h1>
+
+				<h3>
+					<b>Your Tour Is Under Review…</b>
+				</h3>
+
+				<h5>You Will Hear Back From Us Within 48H</h5>
+
+			</div>
 </form>
 	</body>
 </html>
@@ -191,17 +259,15 @@ foreach ($countries as $country)
 	{
 
 		// Form Hide Show On Different Levels
-		
-		$('#form_level2').show();
 
-		$('#form_level1').hide();
+		$('#form_level1').show();
 		$('#form_level3').hide();
+		$('#form_level2').hide();
 
-
-	///////////////////////   DIV:LEVEL-1 STARTS HERE  ////////////////////////////////////////////////
+	///////////////////////   DIV:LEVEL-1 STARTS HERE  ////////////////////////////////////
 	
 
-	//------------------ FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE  ------------------------------------
+	//------------------ FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE  ----------------------
 	
 	
 		$('#countries').change(function(event) {
@@ -245,10 +311,10 @@ foreach ($countries as $country)
 
 		});
 
-// ---------------- END: FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE ---------------------------------
+// ---------------- END: FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE -------------------------
 
 
-// ----------------- Put Textbox as per Checked Value to add new Language and City -----------------------
+// ----------- Put Textbox as per Checked Value to add new Language and City -----------------
 	
 
 		$('#new_city').click(function()
@@ -256,11 +322,15 @@ foreach ($countries as $country)
 	  		if($(this).is(':checked'))
 	  		{
 	  			$('#add_city').show();
-	  			$("#city").find('option').attr("selected",false) ;
+	  			
+	  			
+	  			$("#city").val([]);
 	  			$('.city').attr('disabled', 'disabled');
+			
 	  		}
 	  		else
 	  		{
+	  			$('#city option[value="sel"]').attr("selected",true);
 	  			$('.city').removeAttr('disabled');
 	  			$('#add_city').hide();
 	  		}
@@ -281,9 +351,9 @@ foreach ($countries as $country)
 
 	});
 
-// ----------------END: Put Textbox as per Checked Value to add new Language and City ------------------------------
+// -------END: Put Textbox as per Checked Value to add new Language and City ------------------
 
-// -------------------First Div Button Click starts Here  --------------------------------------------------
+// ------------- First Div Button Click starts Here  ------------------------------------------
 
 
 		 $('#next1').click(function(event)
@@ -291,29 +361,6 @@ foreach ($countries as $country)
 		 	event.preventDefault();
 
 //--------------------------------- Jquery Validations------------------------------------------
-
-		$("#validate_form").validate({
-
-
-			rules:
-			{
-				title:
-				{
-				    required:true,
-				    maxlength:60
-				}
-		
-			},
-			messages:
-			{
-				title:
-				{
-				    required:"Tour Title Is Required.",
-				    maxlength:"<h6><b>Please Enter Less than or Equal to 60 Characters.</b></h6>"
-				}
-			},
-
-			submitHandler: function(form) { 
 
 
 		 	var title 	  = $('#title').val();
@@ -361,47 +408,39 @@ foreach ($countries as $country)
 
 //Pass Data To Controller------------------------------------------------
 
-			var dataString = title+city+lang+countries;
 
 			$.ajax({
 				url: '<?php echo site_url('admin/tours/add'); ?>',
 				type: 'POST',
-				data: dataString,
-				// {
-				// 	title 		: title,
-				// 	city  		: city,
-				// 	lang  		: lang,
-				// 	countries	:countries
+				data: 
+				{
+					title 		: title,
+					city  		: city,
+					lang  		: lang,
+					countries	:countries
 
-				// },
+				},
 				success:function(data)
 				{	
-					alert('12');
+					// alert('12');
 						console.log(data);
-						$('#form_level1').hide();
-		 				$('#form_level3').hide();
-		 				$('#form_level2').show();
+						 $('#form_level1').hide();
+		 			 	 $('#form_level3').show();
+		 			// 	$('#form_level2').show();
 				}
 			});
-			return false;
-
-		}
-	});
-		
 
 	});
 
-
-	// ------------------------First Div Button Click Ends Here  ---------------------------------------------
+	// -----------First Div Button Click Ends Here  -----------------------------------
 	
-	///////////////////////////////  DIV:LEVEL-1 ENDS HERE  //////////////////////////////////////////////////
+	//////////// DIV:LEVEL-1 ENDS HERE  //////////////////////////////////////////////////
 
 
+	//////////// DIV:LEVEL-2 STARTS HERE ////////////////////////////////////////////////
 
-	/////////////////////////// DIV:LEVEL-2 STARTS HERE  ////////////////////////////////////////////////////
 
-
-	//----------------------- Display Checkpoints As per Dropdown Value Selected ------------------------------
+	//---------- Display Checkpoints As per Dropdown Value Selected ------------------
 	
 		$('#checkpoints').change(function(event)
 		{
@@ -413,24 +452,26 @@ foreach ($countries as $country)
 			for (var i = 0; i <= counts-1; i++)
 			 {
 
-				$('#show_check').append("<div class='checkpoint ' id='checkpoint'><i class='glyphicon glyphicon-plus-sign check'></i>Checkpoints <input type='checkbox' ><div class='details'></div><br></div>");
+				$('#show_check').append("<div id=''><i class='glyphicon glyphicon-plus-sign check'><span class='details' id='details' style='display:none'>Name:<input type='text'>Location:<input type='text'></span></i>Checkpoints <input type='checkbox' ><br></div>");
+
 			 }
 		});
 
-	//----------------------- END: Display Checkpoints As per Dropdown Value Selected ----------------------------
+	//-------------END: Display Checkpoints As per Dropdown Value Selected --------------------
 
-    //----------------------- Per Check-box plus Sign- View More ------------------------------------------------
+    //-----------Per Check-box plus Sign- View More -------------------------------------------
 
-
-			$(document).on('click', '.check', function(event) 
+    		$(document).on('click', '.check', function(event) 
 			{
 				event.preventDefault();
-				$(this).append("<br><input type='text'>");
-
+				//alert('1');
+				$(this).closest('span').show();
 				
 			});
 
-	//----------------------- END : Per Check-box plus Sign- View More --------------------------------------------------------
+
+
+	//------------ END : Per Check-box plus Sign- View More --------------------------
 
 
 	
@@ -442,12 +483,65 @@ foreach ($countries as $country)
 
 		// });
 
-	/////////////////////////// DIV:LEVEL-2 ENDS HERE  ////////////////////////////////////////////////////
+	/////////////////////////// DIV:LEVEL-2 ENDS HERE  ///////////////////////////////////
 
 
+	////////////////////////// DIV:LEVEL-3 STARTS HERE  /////////////////////////////////////////////
+
+		$('#null_price').click(function()
+		{
+	  		if($(this).is(':checked'))
+	  		{	
+	  			$('#price').val("");
+	  			$('#price').attr('disabled', 'disabled');
+	  		}
+	  		else
+	  		{
+	  			$('#price').removeAttr('disabled');
+	  			
+	  		}
+		})
+
+		$('#next3').click(function(event) 
+		{		
+
+				var description    = $('#description').val();		
+				var age            = $(".age:checked").val();
+				var price          = $('.price').val();
+				var accessibility  = [];
+
+				$(".accessibility:checked").each(function()
+				{
+   					 accessibility.push($(this).val());
+				});
+
+
+				var acc = accessibility.toString();
+
+			$.ajax({
+				url: '<?php echo site_url('admin/tours/add3'); ?>',
+				type: 'POST',
+	
+				data: 
+				{
+					description 		: description,
+					accessibility  		: acc,
+					age  				: age,
+					price				: price
+
+				},
+				success:function(data)
+				{	
+					$('#congratulations').show();
+
+				}
+			});
+		});
+
+
+	///////////////////////// DIV:LEVEL-3 ENDS HERE  /////////////////////////////////////////////
 	
 </script>
-
 
 
 

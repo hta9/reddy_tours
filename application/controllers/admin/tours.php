@@ -14,12 +14,10 @@ class Tours extends My_Controller
 		echo "12";
 	}
 
-
 	public function fill()
 	{
 		if ($this->input->post())
 		{
-
 			$country_id = _post('country_id');
 			$city_id    = _post('city_id');
 
@@ -29,7 +27,7 @@ class Tours extends My_Controller
 
 				if (!empty($cities))
 				{
-					echo "<option>"."Select City"."</option>";
+					echo "<option value='sel'>"."Select City"."</option>";
 
 					foreach ($cities as $city)
 					{
@@ -60,7 +58,6 @@ class Tours extends My_Controller
 					echo "<option>"."No Languages Yet"."</option>";
 				}
 			}
-
 		}
 		else
 		{
@@ -76,34 +73,27 @@ class Tours extends My_Controller
 	{
 		if ($this->input->post())
 		{
-
-			
-			 $country = _post('countries');
-			 $city    = _post('city');
-			 $title   = _post('title');
-
-echo "<pre>";
-
-print_r($this->input->post());
-			echo "</pre>";
+			$country = _post('countries');
+			$city    = _post('city');
+			$title   = _post('title');
 
 			if (!is_numeric($city))
 			{
-
 				$city_data = array(
 
-					'name' => $city,
-					'country_id'=>$country
+					'name'       => $city,
+					'country_id' => $country
 
 				);
 
 				$this->tour->insert_city($city_data);
+				//last inserted city's ID when city is added Manually from Cities Table
 				$insert_id = $this->db->insert_id();
 
 				$tour_data1 = array(
 
 					'title'      => $title,
-					'city_id'       => $insert_id,
+					'city_id'    => $insert_id,
 					'country_id' => $country
 
 				);
@@ -112,22 +102,61 @@ print_r($this->input->post());
 			}
 			else
 			{
-
 				$tour_data1 = array(
 
 					'title'      => $title,
-					'city_id'       => $city,
+					'city_id'    => $city,
 					'country_id' => $country
 
 				);
 
 				$this->tour->insert_tour($tour_data1);
+			
 			}
+			  $last_tour_id = $this->db->insert_id();
+			  set_session('last_tour_id',$last_tour_id);
 		}
 		else
 		{
 			$data['countries'] = $this->tour->get_countries();
 			$this->load->view('admin/tour/add', $data);
 		}
+
+		echo $this->session->userdata('last_tour_id');
+	}
+
+	public function add3()
+	{	
+		// unset_session('last_tour_id');
+		if ($this->input->post())
+		{	
+			$id = fetch_session('last_tour_id');
+			$description   = _post('description');
+			$price         = _post('price');
+			if($price=='')
+			{
+				$price=0;
+			}
+			$age           = _post('age');
+			$accessibility = _post('accessibility');
+		
+
+			$tour_data3 = array(
+
+				'description'   => $description,
+				'price'         => $price,
+				'age_limit'     => $age,
+				'accessibility' => $accessibility
+
+			);
+
+			$this->tour->update($id,$tour_data3);
+			unset_session('last_tour_id');
+		}
+	}
+
+	public function congratulations()
+	{
+		$this->load->view('admin/tour/congratulations');
 	}
 }
