@@ -55,201 +55,222 @@ if ($message = $this->session->flashdata('users'))
 
 ?>
 
-	<body style="margin-left:5%;">
+ <body style="margin-left:5%;">
 
-	<a href="<?php echo site_url('admin/tours'); ?>" class="btn btn-primary" style="margin-top:1%;margin-bottom:1%; ">Back</a>
+ <a href="<?php echo site_url('admin/tours'); ?>" class="btn btn-primary" style="margin-top:1%;margin-bottom:1%; ">Back</a>
 
+  <form action=""  method="post" id="validate_form" >
 
-
-		<form action=""  method="post" id="validate_form" >
-
-		<div id="form_level1" class="level">
-			<h3>Tours / Add Tour</h3>
+	<div id="form_level1" class="level">
+	<h3>Tours / Add Tour</h3>
 
 
-		<i class="fa fa-file-text-o next"  id="next1"  style="font-size:36px;"></i>
+	<i class="fa fa-file-text-o next"  id="next1"  style="font-size:36px;"></i>
 
-		<div class="row">
-				<div class="form-group col-md-3">
-					<label for="title">Title:</label>
-					<input type="text" name="title" class="form-control input-md " id="title" autocomplete="off"
-						placeholder="Maximum 60 Characters Allowed" >
-				</div>
+	<div class="row">
+			<div class="form-group col-md-3">
+				<label for="title">Title:</label>
+				<input type="text" name="title" class="form-control input-md " id="title" autocomplete="off"
+					placeholder="Maximum 60 Characters Allowed" >
+			</div>
+	</div>
+
+	<div class="row">
+
+		<div class="form-group">
+
+		   <div class="col col-md-3">
+
+			<label for="countries">Country:</label>
+			<select class="form-control input-md" id="countries" name="country">
+				<option value="">Select Country</option>
+
+	<?php
+
+	foreach ($countries as $country)
+	{
+	?>
+				<option value="<?php echo $country['id']; ?>"><?php echo ucwords($country['name']); ?></option>
+
+	<?php
+	}
+
+	?>
+			</select>
 		</div>
 
-		<div class="row">
 
-			<div class="form-group">
+		<div class="col col-md-3">
 
-			   <div class="col col-md-3">
-
-				<label for="countries">Country:</label>
-				<select class="form-control input-md" id="countries" name="country">
-					<option value="">Select Country</option>
-
-<?php
-
-foreach ($countries as $country)
-{
-	?>
- 				<option value="<?php echo $country['id']; ?>"><?php echo ucwords($country['name']); ?></option>
-
- <?php
-}
-
-?>
+				<label for="city">City:</label>
+				<select name="city" id="city" class="form-control input-md city">
+				<option value="">Select City</option>
 				</select>
-			</div>
+		   </div>
 
+		  <div class="col col-md-3">
 
-			<div class="col col-md-3">
+			<label for="language">Language:</label>
+			<select name="language" id="language" class="form-control input-md lang">
+			<option value="">Select Language</option>
 
-	  			<label for="city">City:</label>
-   				<select name="city" id="city" class="form-control input-md city">
-    				<option value="">Select City</option>
-   				</select>
-  		   </div>
+			</select>
+	 	 </div>
 
-  		  <div class="col col-md-3">
+		</div>
+</div>
 
-	  		<label for="language">Language:</label>
-   			<select name="language" id="language" class="form-control input-md lang">
-    			<option value="">Select Language</option>
-
-   			</select>
-  	 	 </div>
-
-  		</div>
-  	 </div>
   	 <br>
-  	  <div class="row">
-  	 		  <div class="col col-md-3 city_check">
 
-  	 		  	 <input type="checkbox" name="new_city" id="new_city">
-  	 		  	 <label for="new_city"><b style="color:#E926AF;">My City Is Not Listed.</b></label>
+	<div class="row">
+	  <div class="col col-md-3 city_check">
 
-  	 		  </div>
+	  	 <input type="checkbox" name="new_city" id="new_city">
+	  	 <label for="new_city"><b style="color:#E926AF;">My City Is Not Listed.</b></label>
 
-  	 		    <div class="col col-md-3">
+	  </div>
 
-  	 		  	 <input type="text" name="add_city" id="add_city" style="display:none;" placeholder="Enter City Name" class="form-control input-md" >
+	  <div class="col col-md-3">
 
-  	 		  </div>
-  	  </div>
+	  	 <input type="text" name="add_city" id="add_city" style="display:none;" placeholder="Enter City Name" class="form-control input-md" >
+
+	  </div>
+
+	</div>
 
   	  <br>
 
-  	   <div class="row">
+  	<div class="row">
 
-  	 		  <div class="col col-md-3">
+  	  <div class="col col-md-3">
 
-  	 		  	 <input type="checkbox" name="new_language" id="new_language" class="lang">
-  	 		  	  <label for="new_language"><b style="color:#E926AF;">I want to Submit My Tour in Another Language.</b></label>
+  	 	<input type="checkbox" name="new_language" id="new_language" class="lang">
+  	 	<label for="new_language"><b style="color:#E926AF;">I want to Submit My Tour in Another Language.</b></label>
 
-  	 		  </div>
+  	 </div>
 
-  	 		  <div class="col col-md-3">
+  	 <div class="col col-md-3">
 
-  	 		  	 <input type="text" name="add_language" style="display:none;" id="add_language"  placeholder="Enter New Language" class="form-control input-md">
+  	 	<input type="text" name="add_language" style="display:none;" id="add_language"  placeholder="Enter New Language" class="form-control input-md">
 
-  	 		  </div>
-  	  </div>
-
-   </div>
+  	 </div>
+  </div>
+</div>
 		
+<!-- .............................................................................................. -->
+
+<div id="form_level2" class="level" name="frm3" style="display:none;">
+
+	<i class="fa fa-file-text-o next"  id="next2"  
+	style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
+
+	<h3>How Many Checkpoints Do You Have?</h3>
+
+	<select id="checkpoints">
+		<option>Select Number</option>
+		<option>1</option>
+		<option>2</option>
+		<option>3</option>
+
+	</select>
+
+	<div id="show_check">
 		
-		<div id="form_level2" class="level" name="frm3" style="display:none;">
-			<i class="fa fa-file-text-o next"  id="next2"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
+	</div>
 
-			<h3>How Many Checkpoints Do You Have?</h3>
+	<div id="checkpoint_bunch"  class="bunch"  style="opacity:0">
+		<i class='glyphicon glyphicon-plus-sign check'>Checkpoints 
+			<input type='checkbox' disabled="true" ><br><br>
+			 Name: 
+			 <input type='text' >
+			 <br>
+			 <br>
+			Location:
+			<input type='text' id="location" class='location'></i><br>
+	</div>
+  
+</div>
+<!-- ........................................................................................... -->
+	<br>
 
-			<select id="checkpoints">
-				<option>Select Number</option>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
+<div id="form_level3" class="level"  >
+	
+	<i class="fa fa-file-text-o next"  id="next3"  
+		style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
 
-			</select>
+	<div class="form-group" style="margin-top:3%;">
+		<label for="description">Description</label>
+		<textarea class="form-control" rows="5" id="description" name="description" style="width:30%;"></textarea>
+	</div>
 
-			<div id="show_check">
+	<div class="row">
 
-			</div>
-
-		</div>
-
-		<br>
-
-		<div id="form_level3" class="level"  >
-					<i class="fa fa-file-text-o next"  id="next3"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
-
-				<div class="form-group" style="margin-top:3%;">
-					<label for="description">Description</label>
-					<textarea class="form-control" rows="5" id="description" name="description" style="width:30%;"></textarea>
-				</div>
-
-			<div class="row">
-
-				<div class="col-md-3">
-						<div class="form-group">
-								<label for="price">Price</label>
-								<input type="text"  class="form-control input-md price" name="price" id="price">
-						</div>
-				</div>
-
-				<div class="col-md-3">
-					 <div class="form-group">
-						<input type="checkbox" class="input-group price" id="null_price" name="price">I Have No Clue.
-					 </div>
-				</div>
-			</div>
-
+		<div class="col-md-3">
 			<div class="form-group">
-
-				<h2><b>Age Restrictions and Accessibility</b></h2>
-				When Your Tour Is Suitable For All, Select All Icons
-
-
-				<br>
-			<div class="row">
-
-				<div class="col-md-3">
-					<h3>Age Restriction</h3>
-
-				<input type="radio" id="6" class="age" value="6" name="age"><label for="6">+6</label>
-				<input type="radio" id="9" class="age" value="9" name="age"><label for="9">+9</label>&nbsp;
-				<input type="radio" id="12" class="age" value="12" name="age"><label for="12">+12</label>
-				<input type="radio" id="16" class="age" value="16" name="age"><label for="16">+16</label>
-				<input type="radio" id="18" class="age" value="18" name="age"><label for="18">+18</label>
-				</div>
-			
-				<div class="col-md-3">
-					<h3>Accessibility</h3>
-					<input type="checkbox" class="accessibility" id="wheelchair" value="wheelchair" name="accessibility[]">
-					<label for="wheelchair">WheelChair</label>
-
-					<input type="checkbox" class="accessibility" id="babystoller"  value="babystoller"  name="accessibility[]">
-					<label for="babystoller">Babystoller</label>
-
-					<input type="checkbox" class="accessibility" id="dogs"  value="dogs"  name="accessibility[]">
-					<label for="dogs">Dogs</label>
-
-				</div>
+				<label for="price">Price</label>
+				<input type="text"  class="form-control input-md price" name="price" id="price">
+			</div>
 		</div>
+
+		<div class="col-md-3">
+			<div class="form-group">
+			   <input type="checkbox" class="input-group price" id="null_price" name="price">I Have No Clue.
 			</div>
+		</div>
+	</div>
 
-			<div id="congratulations" style="display:none;">
-				
-				<h1><b>CONGRATULATIONS!</b></h1>
+	<div class="form-group">
 
-				<h3>
-					<b>Your Tour Is Under Review…</b>
-				</h3>
+		<h2><b>Age Restrictions and Accessibility</b></h2>
 
-				<h5>You Will Hear Back From Us Within 48H</h5>
+			When Your Tour Is Suitable For All, Select All Icons
+			<br>
 
-			</div>
-</form>
-	</body>
+<div class="row">
+
+	<div class="col-md-3">
+		<h3>Age Restriction</h3>
+
+		<input type="radio" id="6" class="age" value="6" name="age"><label for="6">+6</label>
+		<input type="radio" id="9" class="age" value="9" name="age"><label for="9">+9</label>
+		&nbsp;
+		<input type="radio" id="12" class="age" value="12" name="age"><label for="12">+12</label>
+		<input type="radio" id="16" class="age" value="16" name="age"><label for="16">+16</label>
+		<input type="radio" id="18" class="age" value="18" name="age"><label for="18">+18</label>
+	</div>
+			
+	<div class="col-md-3">
+		<h3>Accessibility</h3>
+		<input type="checkbox" class="accessibility" id="wheelchair" value="wheelchair" name="accessibility[]">
+		<label for="wheelchair">WheelChair</label>
+
+		<input type="checkbox" class="accessibility" id="babystoller"  value="babystoller"  name="accessibility[]">
+		<label for="babystoller">Babystoller</label>
+
+		<input type="checkbox" class="accessibility" id="dogs"  value="dogs"  name="accessibility[]">
+		<label for="dogs">Dogs</label>
+
+	</div>
+
+	</div>
+ </div>
+</div>
+
+	<div id="congratulations" style="display:none;">
+		
+		<h1><b>CONGRATULATIONS!</b></h1>
+
+		<h3>
+			<b>Your Tour Is Under Review…</b>
+		</h3>
+
+		<h5>You Will Hear Back From Us Within 48H</h5>
+
+	</div>
+
+  </form>
+
+ </body>
 </html>
 
 <script type="text/javascript">
@@ -259,19 +280,18 @@ foreach ($countries as $country)
 	{
 
 		// Form Hide Show On Different Levels
-
-		$('#form_level1').show();
+		// $('.bunch').hide();
+		$('#form_level2').show();
 		$('#form_level3').hide();
-		$('#form_level2').hide();
+		$('#form_level1').hide();
 
 	///////////////////////   DIV:LEVEL-1 STARTS HERE  ////////////////////////////////////
-	
 
 	//------------------ FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE  ----------------------
 	
 	
-		$('#countries').change(function(event) {
-
+		$('#countries').change(function(event) 
+		{
 			var country_id  = $(this).val();
 
 			$.ajax({
@@ -287,11 +307,11 @@ foreach ($countries as $country)
 
 				}
 			})
-
-
 		});
 
-		$('#city').change(function(event) {
+
+		$('#city').change(function(event)
+		 {
 
 			var city_id  = $(this).val();
 
@@ -311,10 +331,10 @@ foreach ($countries as $country)
 
 		});
 
-// ---------------- END: FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE -------------------------
+// ---------------- END: FILL SELECT BOXES OF COUNTRY-CITY-LANGUAGE -----------------------
 
 
-// ----------- Put Textbox as per Checked Value to add new Language and City -----------------
+// ----------- Put Textbox as per Checked Value to add new Language and City -------------
 	
 
 		$('#new_city').click(function()
@@ -351,16 +371,16 @@ foreach ($countries as $country)
 
 	});
 
-// -------END: Put Textbox as per Checked Value to add new Language and City ------------------
+// -------END: Put Textbox as per Checked Value to add new Language and City -------
 
-// ------------- First Div Button Click starts Here  ------------------------------------------
+// ------------- First Div Button Click starts Here  -------------------------------
 
 
 		 $('#next1').click(function(event)
 		 {
 		 	event.preventDefault();
 
-//--------------------------------- Jquery Validations------------------------------------------
+//--------------------------------- Jquery Validations------------------------------
 
 
 		 	var title 	  = $('#title').val();
@@ -426,7 +446,7 @@ foreach ($countries as $country)
 						console.log(data);
 						 $('#form_level1').hide();
 		 			 	 $('#form_level3').show();
-		 			// 	$('#form_level2').show();
+		 			// 	 $('#form_level2').show();
 				}
 			});
 
@@ -452,26 +472,55 @@ foreach ($countries as $country)
 			for (var i = 0; i <= counts-1; i++)
 			 {
 
-				$('#show_check').append("<div id=''><i class='glyphicon glyphicon-plus-sign check'><span class='details' id='details' style='display:none'>Name:<input type='text'>Location:<input type='text'></span></i>Checkpoints <input type='checkbox' ><br></div>");
-
+				$('#show_check').append($('.bunch').html());
+				
 			 }
-		});
+});
+			  var autocomplete;
 
+
+function initAutocomplete() 
+{
+// $('.location').attr('id', 'location');
+  autocomplete = new google.maps.places.Autocomplete
+  (
+    document.getElementById('location'), {types: ['geocode']}
+    
+  );
+}
+	
+</script>
+
+
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClQ_Y_F3mJtS_6rpylRvn-8cREsaae29E&libraries=places&callback=initAutocomplete"
+ async defer></script>
+	
+
+<script type="text/javascript">
 	//-------------END: Display Checkpoints As per Dropdown Value Selected --------------------
 
     //-----------Per Check-box plus Sign- View More -------------------------------------------
 
-    		$(document).on('click', '.check', function(event) 
-			{
-				event.preventDefault();
-				//alert('1');
-				$(this).closest('span').show();
+   //  		$(document).on('click', '.check', function(event) 
+			// {
+			// 	event.preventDefault();
+			// 	//alert('1');
+			// 	$(this).closest('span').show();
 				
-			});
+			// });
+			
 
 
 
-	//------------ END : Per Check-box plus Sign- View More --------------------------
+	//------------ END : Per Check-box plus Sign- View More ---------------------
+	
+	 //----------- Auto Check-Checkbox -------------------------------------------
+
+
+
+
+
+	//------------ END : Auto Check-Checkbox -------------------------------------
 
 
 	

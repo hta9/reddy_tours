@@ -16,9 +16,7 @@ class Tour_model extends My_Model
 		$countries = $this->get_all();
 		return $countries;
 	}
-
-
-
+	
 	/**
 	 * [get_cities description]
 	 * @return [type] [description]

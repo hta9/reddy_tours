@@ -90,7 +90,8 @@ class Tours extends My_Controller
 				//last inserted city's ID when city is added Manually from Cities Table
 				$insert_id = $this->db->insert_id();
 
-				$tour_data1 = array(
+				$tour_data1 = array
+				(
 
 					'title'      => $title,
 					'city_id'    => $insert_id,
@@ -122,7 +123,7 @@ class Tours extends My_Controller
 			$this->load->view('admin/tour/add', $data);
 		}
 
-		echo $this->session->userdata('last_tour_id');
+		echo fetch_session('last_tour_id');
 	}
 
 	public function add3()
