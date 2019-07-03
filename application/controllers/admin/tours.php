@@ -14,6 +14,10 @@ class Tours extends My_Controller
 		echo "12";
 	}
 
+	/**
+	 * [fill This function is for Filling Dropdown boxes of City and language as per Country ]
+	 * @return [type] [description]
+	 */
 	public function fill()
 	{
 		if ($this->input->post())
@@ -123,9 +127,22 @@ class Tours extends My_Controller
 			$this->load->view('admin/tour/add', $data);
 		}
 
-		echo fetch_session('last_tour_id');
+		// echo fetch_session('last_tour_id');
 	}
 
+	/**
+	 * [add2 Checkpoints insertion With its id in Tour Table]
+	 * @return [type] [description]
+	 */
+	public function add2()
+	{
+		
+	}
+
+	/**
+	 * [add3 Third Level formdata Insertion]
+	 * @return [type] [description]
+	 */
 	public function add3()
 	{	
 		// unset_session('last_tour_id');
@@ -134,6 +151,7 @@ class Tours extends My_Controller
 			$id = fetch_session('last_tour_id');
 			$description   = _post('description');
 			$price         = _post('price');
+
 			if($price=='')
 			{
 				$price=0;

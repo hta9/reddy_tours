@@ -28,6 +28,11 @@ class Tour_model extends My_Model
 		return $cities;
 	}
 
+	/**
+	 * [get_languages_by_city Fetch laguages as per city]
+	 * @param  [type] $id [description]
+	 * @return [type]     [description]
+	 */
 	public function get_languages_by_city($id)
 	{	
 
@@ -36,7 +41,11 @@ class Tour_model extends My_Model
 		return $languages;
 	}	
 
-
+	/**
+	 * [insert_city city id is insrted to tour or new city name is inserted in city table]
+	 * @param  [type] $city_data [description]
+	 * @return [type]            [description]
+	 */
 	public function insert_city($city_data)
 	{
 		$this->_table = 'cities';
@@ -53,6 +62,11 @@ class Tour_model extends My_Model
 
 	}
 
+	/**
+	 * [insert_tour Table name is not fetched automaticlly so function is for fetching table name]
+	 * @param  [type] $tour_data1 [description]
+	 * @return [type]             [description]
+	 */
 	public function insert_tour($tour_data1)
 	{	
 		$this->_table = 'tours';

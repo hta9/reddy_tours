@@ -20,6 +20,20 @@
  <script type="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/additional-methods.js"></script>
  <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.17.0/additional-methods.min.js"></script>
 
+<script type="text/javascript">
+	var autocomplete;
+
+
+function initAutocomplete() 
+{
+
+ var input = document.getElementsByClassName('location');
+for (i = 0; i < input.length; i++) {
+                 autocomplete = new google.maps.places.Autocomplete(input[i]);
+             }
+         }
+
+</script>
   <style type="text/css">
 
   	.error
@@ -159,10 +173,9 @@ if ($message = $this->session->flashdata('users'))
 		
 <!-- .............................................................................................. -->
 
-<div id="form_level2" class="level" name="frm3" style="display:none;">
+<div id="form_level2" class="level">
 
-	<i class="fa fa-file-text-o next"  id="next2"  
-	style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
+	<i class="fa fa-file-text-o next"  id="next2"  style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
 
 	<h3>How Many Checkpoints Do You Have?</h3>
 
@@ -178,17 +191,23 @@ if ($message = $this->session->flashdata('users'))
 		
 	</div>
 
-	<div id="checkpoint_bunch"  class="bunch"  style="opacity:0">
-		<i class='glyphicon glyphicon-plus-sign check'>Checkpoints 
-			<input type='checkbox' disabled="true" ><br><br>
-			 Name: 
-			 <input type='text' >
+	<div id="checkpoint_bunch"  class="bunch check"  style="opacity:0" >
+		<h2><i class='glyphicon glyphicon-plus-sign '></i>
+		 Checkpoints	
+		<input type='checkbox' disabled="true" >
+	 	</h2><br><br>
+			  
+			  <label for="name">Name:</label> 
+			 <input type='text' id="name"  class="form-control input-sm name">
 			 <br>
 			 <br>
-			Location:
-			<input type='text' id="location" class='location'></i><br>
+			  <label for="name">Location:</label> 
+			<input type='text' id="location" class="form-control input-sm location"><br>
+
 	</div>
-  
+	<input type='text' id="location" class="form-control input-sm location"><br>
+			
+ 
 </div>
 <!-- ........................................................................................... -->
 	<br>
@@ -196,7 +215,8 @@ if ($message = $this->session->flashdata('users'))
 <div id="form_level3" class="level"  >
 	
 	<i class="fa fa-file-text-o next"  id="next3"  
-		style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>Next
+		style="font-size:36px;margin-left:15%;margin-top:-15%;"></i>
+		Next
 
 	<div class="form-group" style="margin-top:3%;">
 		<label for="description">Description</label>
@@ -476,21 +496,10 @@ if ($message = $this->session->flashdata('users'))
 				
 			 }
 });
-			  var autocomplete;
-
-
-function initAutocomplete() 
-{
-// $('.location').attr('id', 'location');
-  autocomplete = new google.maps.places.Autocomplete
-  (
-    document.getElementById('location'), {types: ['geocode']}
-    
-  );
-}
+			  
 	
 </script>
-
+ 
 
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyClQ_Y_F3mJtS_6rpylRvn-8cREsaae29E&libraries=places&callback=initAutocomplete"
  async defer></script>
@@ -517,25 +526,25 @@ function initAutocomplete()
 	 //----------- Auto Check-Checkbox -------------------------------------------
 
 
-
-
-
 	//------------ END : Auto Check-Checkbox -------------------------------------
 
 
 	
-		//  $('#next2').click(function(event)
-		//  {
-		//  	$('#form_level1').hide();
-		//  	$('#form_level2').hide();
-		//  	$('#form_level3').show();
+		 $('#next2').click(function(event)
+		 {
+		 	event.preventDefault();
 
-		// });
+		 	$('#form_level1').hide();
+		 	$('#form_level2').hide();
+		 	$('#form_level3').show();
+
+
+		});
 
 	/////////////////////////// DIV:LEVEL-2 ENDS HERE  ///////////////////////////////////
 
 
-	////////////////////////// DIV:LEVEL-3 STARTS HERE  /////////////////////////////////////////////
+	////////////////////////// DIV:LEVEL-3 STARTS HERE  //////////////////////////////////
 
 		$('#null_price').click(function()
 		{
