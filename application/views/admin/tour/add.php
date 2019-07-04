@@ -28,10 +28,12 @@ function initAutocomplete()
 {
 
  var input = document.getElementsByClassName('location');
-for (i = 0; i < input.length; i++) {
+
+			 for (i = 0; i < input.length; i++) 
+			 {
                  autocomplete = new google.maps.places.Autocomplete(input[i]);
              }
-         }
+}
 
 </script>
   <style type="text/css">
@@ -198,14 +200,14 @@ if ($message = $this->session->flashdata('users'))
 	 	</h2><br><br>
 			  
 			  <label for="name">Name:</label> 
-			 <input type='text' id="name"  class="form-control input-sm name">
+			 <input type='text' id="name" name="name"  class="form-control input-sm name">
 			 <br>
 			 <br>
 			  <label for="name">Location:</label> 
-			<input type='text' id="location" class="form-control input-sm location"><br>
+			<input type='text' id="location" class="form-control input-sm location" name="location"><br>
 
 	</div>
-	<input type='text' id="location" class="form-control input-sm location"><br>
+	<!-- <input type='text' id="location" class="form-control input-sm location"><br> -->
 			
  
 </div>
@@ -534,9 +536,19 @@ if ($message = $this->session->flashdata('users'))
 		 {
 		 	event.preventDefault();
 
-		 	$('#form_level1').hide();
-		 	$('#form_level2').hide();
-		 	$('#form_level3').show();
+		 	// var location =[];
+	
+		 	
+   		$('.location').each(function() 
+   		{
+	           var location =  $(this).val();
+	           alert(location);
+	    });
+			 	$('#form_level1').hide();
+			 	$('#form_level2').hide();
+			 	$('#form_level3').show();
+
+
 
 
 		});
